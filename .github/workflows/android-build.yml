@@ -11,12 +11,12 @@ jobs:
       - name: Build
         uses: dabao1955/kernel_build_action@main
         with:
-          kernel-url: https://github.com/AcmeUI-Devices/android_kernel_xiaomi_cas
-          kernel-branch: taffy
-          config: cas_defconfig
+          kernel-url: https://android.googlesource.com/kernel/manifest
+          kernel-branch: q-goldfish-android-goldfish-4.14-dev
+          config: defconfig
           arch: arm64
           aosp-gcc: true
           aosp-clang: true
           python-2.7: true
-          android-version: 12
-          aosp-clang-version: r383902
+          android-version: 10
+          aosp-clang-version: r353983c
