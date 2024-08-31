@@ -44,9 +44,9 @@ jobs:
 
     - name: Initialize repo
       run: |
-        repo sync --no-tags --no-cache
-        repo clean -f
-        repo init -u $REPO_URL -b $BRANCH --depth=1 --repo-branch=$REPO_BRANCH
+        # repo sync --no-tags --no-cache
+        # repo clean -f
+        repo init -u $REPO_URL -b $BRANCH --depth=1
 
     - name: Sync repo
       run: |
