@@ -17,6 +17,7 @@ jobs:
       REPO_URL: https://github.com/LineageOS/android.git
       BRANCH: lineage-21.0  # 根据需要更改分支
       REPO_BRANCH: "v2.15.0"  # 使用稳定的 repo 版本
+      REPO_VERSION: v2.34  # 明确指定 repo 工具版本
 
     steps:
     - name: Checkout repository
@@ -43,7 +44,7 @@ jobs:
 
     - name: Initialize repo
       run: |
-        repo init -u $REPO_URL -b $BRANCH --git-lfs --depth=1 --repo-branch=$REPO_BRANCH
+        repo init -u $REPO_URL -b $BRANCH --git-lfs --depth=1 --repo-branch=$REPO_VERSION
 
     - name: Sync repo
       run: |
