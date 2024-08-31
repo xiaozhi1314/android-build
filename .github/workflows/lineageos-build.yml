@@ -16,7 +16,7 @@ jobs:
     env:
       REPO_URL: https://github.com/LineageOS/android.git
       BRANCH: lineage-21.0  # 根据需要更改分支
-      REPO_BRANCH: stable  # 使用稳定的 repo 版本
+      REPO_BRANCH: "v2.15.0"  # 使用稳定的 repo 版本
 
     steps:
     - name: Checkout repository
