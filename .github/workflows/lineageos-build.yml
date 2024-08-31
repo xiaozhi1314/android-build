@@ -51,7 +51,7 @@ jobs:
 
     - name: Sync repo
       run: |
-        repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+        sudo /usr/local/bin/repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
 
     - name: Prepare the build environment
       run: |
