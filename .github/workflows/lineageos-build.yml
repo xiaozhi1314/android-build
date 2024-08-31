@@ -46,6 +46,7 @@ jobs:
       run: |
         # repo sync --no-tags --no-cache
         # repo clean -f
+        repo --version
         repo init -u $REPO_URL -b $BRANCH --depth=1
 
     - name: Sync repo
