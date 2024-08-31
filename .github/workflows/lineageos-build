@@ -1,0 +1,65 @@
+name: Build LineageOS for Xiaomi
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    env:
+      REPO_URL: https://github.com/LineageOS/android.git
+      BRANCH: lineage-20.0  # 根据需要更改分支
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '11'
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop openjdk-11-jdk pngcrush schedtool squashfs-tools xsltproc zip zlib1g-dev
+
+    - name: Set up environment
+      run: |
+        mkdir -p ~/.bin
+        echo 'export PATH=~/.bin:$PATH' >> ~/.bashrc
+        source ~/.bashrc
+        curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
+        chmod a+x ~/.bin/repo
+
+    - name: Initialize repo
+      run: |
+        repo init -u $REPO_URL -b $BRANCH --depth=1
+
+    - name: Sync repo
+      run: |
+        repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+
+    - name: Prepare the build environment
+      run: |
+        source build/envsetup.sh
+        lunch lineage_kenzo-userdebug  # 将 "device" 替换为具体的小米设备代号
+
+    - name: Start the build
+      run: |
+        make -j$(nproc) bacon
+
+    - name: Upload build artifacts
+      if: success()
+      uses: actions/upload-artifact@v3
+      with:
+        name: lineageos-build
+        path: out/target/product/device/*.zip  # 修改 "device" 为实际设备代号
