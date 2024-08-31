@@ -15,7 +15,7 @@ jobs:
 
     env:
       REPO_URL: https://github.com/LineageOS/android.git
-      BRANCH: lineage-20.0  # 根据需要更改分支
+      BRANCH: lineage-21.0  # 根据需要更改分支
 
     steps:
     - name: Checkout repository
@@ -42,7 +42,7 @@ jobs:
 
     - name: Initialize repo
       run: |
-        repo init -u $REPO_URL -b $BRANCH --depth=1
+        repo init -u $REPO_URL -b $BRANCH --git-lfs --depth=1
 
     - name: Sync repo
       run: |
