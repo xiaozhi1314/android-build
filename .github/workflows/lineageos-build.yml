@@ -47,7 +47,7 @@ jobs:
         # repo sync --no-tags --no-cache
         # repo clean -f
         repo --version
-        python3 /usr/local/bin/repo init -u $REPO_URL -b $BRANCH --depth=1
+        sudo /usr/local/bin/repo init -u $REPO_URL -b $BRANCH --depth=1
 
     - name: Sync repo
       run: |
